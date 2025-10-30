@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNIPER ADS - Jasa Iklan Taktis (Penyaring Prospek)</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        :root {
+            /* Palet Taktis: Hitam, Putih, Kuning */
+            --bs-primary: #FFC107; /* Kuning Aksen */
+            --bs-primary-rgb: 255, 193, 7;
+            --bs-secondary: #FFC107; /* Kuning Aksen */
+            --bs-dark: #1a1a1a;
+            --bs-light-bg: #2a2a2a; /* Latar Belakang Kartu */
+            --bs-text-light: #e0e0e0;
+            --bs-text-muted: #8a8a9e;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bs-dark);
+            color: var(--bs-text-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800; /* Font tebal untuk kesan premium */
+            color: #fff; 
+        }
+        
+        .card {
+            border-radius: 4px; /* Sudut Tajam */
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background-color: var(--bs-light-bg);
+        }
+        
+        .btn {
+            border-radius: 4px; /* Sudut Tajam */
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 4px 15px rgba(var(--bs-primary-rgb), 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #1a1a1a; /* Teks hitam di tombol kuning */
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--bs-secondary);
+            border-color: var(--bs-secondary);
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Styling Bedah Kasus (Out of the Box) */
+        .case-study-card {
+            border-radius: 4px;
+            padding: 2rem;
+            height: 100%;
+        }
+        .case-study-before {
+            background-color: #3b2a2a; /* Latar merah gelap */
+            border-left: 5px solid var(--bs-danger);
+        }
+        .case-study-after {
+            background-color: #2a3b2b; /* Latar hijau gelap */
+            border-left: 5px solid var(--bs-success);
+        }
+        .case-study-card .stat-number-before {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--bs-danger);
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+        .case-study-card .stat-number-after {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--bs-success);
+        }
+        .debrief-card {
+            border-left: 10px solid var(--bs-primary);
+            background-color: var(--bs-light-bg);
+        }
+        
+        /* Pricing Tiers */
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: scale(1.03);
+            border-color: var(--bs-primary);
+        }
+        .pricing-card-highlight {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(var(--bs-primary-rgb), 0.2);
+            border: 3px solid var(--bs-primary);
+        }
+        .pricing-card-highlight:hover {
+             transform: scale(1.07);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50rem;
+            font-weight: 700;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            background-color: var(--bs-secondary);
+            color: #1a1a1a;
+        }
+        
+        .btn-wa {
+             background-color: #25D366;
+             border-color: #25D366;
+             color: white;
+             border-radius: 4px;
+             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-wa:hover {
+            background-color: #1EAE50;
+            border-color: #1EAE50;
+            color: white;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        #hero-typewriter {
+            color: var(--bs-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 30px rgba(var(--bs-primary-rgb), 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), 0);
+            }
+        }
+        .hero-logo-wrapper {
+            background-color: #2a2a2a;
+            border-radius: 50%;
+            padding: 2rem;
+            display: inline-block;
+            border: 2px solid var(--bs-primary);
+            animation: pulse 2s infinite;
+        }
+        .hero-logo-wrapper img {
+            max-width: 250px;
+        }
+        
+        #problem .card {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+        
+        #process .timeline-container {
+            position: relative;
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+        #process .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--bs-primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: attr(data-step); 
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            right: -25px;
+            background-color: var(--bs-light-bg);
+            border: 4px solid var(--bs-primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 2;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bs-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .timeline-item.left {
+            left: 0;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item.right::after {
+            left: -25px;
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--bs-light-bg);
+            border: 1px solid #333;
+            position: relative;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .timeline-content:hover {
+            border-color: var(--bs-primary);
+            transform: scale(1.03);
+        }
+        @media screen and (max-width: 768px) {
+            #process .timeline-container::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0%;
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 6px;
+            }
+        }
+        
+        /* Gallery Tabs */
+        .gallery-tabs .nav-link {
+            border: 0;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            margin: 0 0.5rem;
+            color: var(--bs-text-light);
+            background-color: #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .gallery-tabs .nav-link.active {
+            color: #1a1a1a;
+            background-color: var(--bs-primary);
+            box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.3);
+            transform: translateY(-3px);
+        }
+        .gallery-image-wrapper {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .gallery-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2.5rem;
+            z-index: 10;
+        }
+        
+        /* Testimoni "Trophy Wall" */
+        .testimonial-card {
+            background-color: var(--bs-light-bg);
+            padding: 2.5rem;
+            border-radius: 4px;
+            height: 100%;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: var(--bs-primary);
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bs-primary);
+        }
+        .testimonial-card .stars {
+            color: var(--bs-secondary);
+        }
+        
+        /* FAQ */
+        .accordion-item {
+            background-color: var(--bs-light-bg);
+            border: 1px solid #333;
+            border-radius: 4px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .accordion-button {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: var(--bs-primary);
+            color: #1a1a1a;
+            box-shadow: none;
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: transparent;
+        }
+        .accordion-button::after {
+            font-family: 'bootstrap-icons';
+            content: '\F4FA';
+            font-size: 1.5rem;
+            font-weight: 800;
+            background-image: none;
+            color: var(--bs-primary);
+            transition: transform 0.3s ease;
+        }
+        .accordion-button:not(.collapsed)::after {
+            content: '\F2E6';
+            color: #1a1a1a;
+            transform: rotate(-180deg);
+        }
+
+        #floating-wa, #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        #floating-wa {
+            left: 20px;
+            background-color: #25D366;
+            color: white;
+        }
+        #floating-wa:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        #scroll-to-top {
+            right: 20px;
+            background-color: var(--bs-primary);
+            color: #1a1a1a;
+            border: none;
+            display: none;
+        }
+        #scroll-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.4);
+        }
+
+        /* Highlight Teks Emosional */
+        .text-highlight {
+            color: var(--bs-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .brand-highlight {
+            color: var(--bs-primary);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+
+    <nav class="navbar navbar-expand-lg bg-dark shadow-sm sticky-top border-bottom border-white-50">
+        <div class="container py-2">
+            <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
+                <img src="img/logo.png" alt="Sniper Ads Logo" height="40" class="me-2">
+                SNIPER ADS
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#solution">Solusi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proof">Studi Kasus</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#offer">Harga</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimoni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                </ul>
+                <a href="#cta" class="btn btn-primary d-none d-lg-block cta-button">
+                    Mulai Konsultasi <i class="bi bi-arrow-right-short"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero" class="container py-5 mt-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <h1 class="display-3 fw-bolder lh-1 mb-4" data-aos="fade-right">
+                    Berhenti Pakai Jaring. <br>Mulai Pakai Peluru.
+                </h1>
+                
+                <p class="lead fs-4 my-4" data-aos="fade-right" data-aos-delay="200">
+                    Admin Anda lelah meladeni chat <span class="text-highlight">"Info Dong?"</span> yang tidak pernah <em>closing</em>?
+                    <br class="d-none d-md-block">
+                    Jasa iklan lain memberi Anda <span class="text-highlight">LEADS</span>. Kami memberi Anda <span class="text-highlight">TARGET</span>.
+                </p>
+                <p class="text-muted" data-aos="fade-right" data-aos-delay="300">Kami menyaring 90% prospek <span id="hero-typewriter"></span></p>
+                <a href="#offer" class="btn btn-primary btn-lg mt-3" data-aos="fade-right" data-aos-delay="400">
+                    Lihat Paket Jasa <i class="bi bi-arrow-down-short"></i>
+                </a>
+            </div>
+            <div class="col-lg-5 text-center" data-aos="fade-left" data-aos-delay="400">
+                <div class="hero-logo-wrapper">
+                    <img src="img/logo.png" class="img-fluid" alt="Logo Sniper Ads">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="problem" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Waktu Anda Terlalu Berharga...</h2>
+            <p class="lead text-muted">...untuk dihabiskan pada 3 masalah klasik ini.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 p-4 text-center">
+                    <i class="bi bi-patch-question-fill fs-1 text-danger mb-3"></i>
+                    <h4 class="fw-bold"><span class="text-highlight">Chat "Iseng"</span></h4>
+                    <p>Waktu habis meladeni "Info dong?" atau "Harganya berapa?" yang kemudian menghilang.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 p-4 text-center">
+                    <i class="bi bi-crosshair fs-1 text-danger mb-3"></i>
+                    <h4 class="fw-bold"><span class="text-highlight">Tidak Qualified</span></h4>
+                    <p>Follow-up prospek yang ternyata tidak punya <em>budget</em> atau niat beli sama sekali.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 p-4 text-center">
+                    <i class="bi bi-bullseye fs-1 text-danger mb-3"></i>
+                    <h4 class="fw-bold"><span class="text-highlight">Target Terlewat</span></h4>
+                    <p>Bukan karena kurang jago, tapi karena 90% waktu Anda habis untuk <em>menyaring</em>, bukan <em>closing</em>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="container py-5 mt-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-8 mx-auto" data-aos="fade-right">
+                <h2 class="fw-bolder display-5 mb-4">Solusi Kami: <br>Sistem Penyaringan Prospek.</h2>
+                <p class="lead mb-4">Iklan "biasa" mengejar <em>kuantitas</em>. Kami mengejar <em>kualitas</em>. Kami merancang iklan yang <span class="text-highlight">sengaja menolak</span> orang iseng agar hanya prospek serius yang menghubungi Anda.</p>
+                <ul class="list-unstyled fs-5 mt-4">
+                    <li class="mb-3 d-flex">
+                        <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
+                        <div><strong><span class="text-highlight">Menarik Prospek 'Serius'</span></strong><br><small>Fokus pada audiens yang punya <em>masalah nyata</em> & <em>kemampuan finansial</em>.</small></div>
+                    </li>
+                    <li class="mb-3 d-flex">
+                        <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
+                        <div><strong><span class="text-highlight">Hemat Waktu Produktif</span></strong><br><small>Anda bisa langsung fokus ke <em>closing</em>, bukan edukasi dari nol.</small></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Proses Transparan Kami</h2>
+            <p class="lead text-muted">Sederhana, efektif, dan selalu terukur.</p>
+        </div>
+        
+        <div class="timeline-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item left" data-step="1">
+                <div class="timeline-content text-center">
+                    <i class="bi bi-crosshair fs-1 text-primary mb-3"></i>
+                    <h5 class="fw-bold">Riset & Strategi</h5>
+                    <p>Kami bedah <em>psikografi</em> klien ideal Anda.</p>
+                </div>
+            </div>
+            <div class="timeline-item right" data-step="2">
+                <div class="timeline-content text-center">
+                    <i class="bi bi-sliders fs-1 text-primary mb-3"></i>
+                    <h5 class="fw-bold">Setup Iklan Penyaring</h5>
+                    <p>Copywriting & visual yang fokus <em>edukasi</em>.</p>
+                </div>
+            </div>
+            <div class="timeline-item left" data-step="3">
+                <div class="timeline-content text-center">
+                    <i class="bi bi-lightning-charge-fill fs-1 text-primary mb-3"></i>
+                    <h5 class="fw-bold">Optimasi Harian</h5>
+                    <p>Anggaran dialihkan ke iklan yang paling efektif.</p>
+                </div>
+            </div>
+            <div class="timeline-item right" data-step="4">
+                <div class="timeline-content text-center">
+                    <i class="bi bi-bullseye fs-1 text-primary mb-3"></i>
+                    <h5 class="fw-bold">Laporan H+1</h5>
+                    <p>Transparansi penuh atas hasil & biaya harian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="gallery" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Bukan Janji, Ini Buktinya.</h2>
+            <p class="lead text-muted">Perbedaan antara "Jaring" dan "Peluru" kami.</p>
+        </div>
+
+        <ul class="nav nav-tabs justify-content-center gallery-tabs border-0 mb-5" id="galleryTabs" role="tablist" data-aos="fade-up" data-aos-delay="100">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="bad-ads-tab" data-bs-toggle="tab" data-bs-target="#bad-ads-pane" type="button" role="tab" aria-controls="bad-ads-pane" aria-selected="true">
+                    <i class="bi bi-x-lg me-2"></i>TARGET MELESET
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="good-ads-tab" data-bs-toggle="tab" data-bs-target="#good-ads-pane" type="button" role="tab" aria-controls="good-ads-pane" aria-selected="false">
+                    <i class="bi bi-check-lg me-2"></i>TARGET TERKUNCI
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="galleryTabsContent">
+            <div class="tab-pane fade show active" id="bad-ads-pane" role="tabpanel" aria-labelledby="bad-ads-tab" tabindex="0">
+                <div class="row g-4">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="gallery-image-wrapper">
+                            <span class="gallery-badge text-danger"><i class="bi bi-x-circle-fill"></i></span>
+                            <img src="img/2.png" class="img-fluid" alt="Contoh Iklan Jelek 1">
+                        </div>
+                        <h5 class="fw-bold mt-3">Masalah: Fokus Harga Murah</h5>
+                        <p>Menggunakan <em>clickbait</em> "HARGA MURAH" hanya menarik orang iseng yang membandingkan harga, bukan yang mencari kualitas.</p>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="gallery-image-wrapper">
+                            <span class="gallery-badge text-danger"><i class="bi bi-x-circle-fill"></i></span>
+                            <img src="img/gallery-3.jpeg" class="img-fluid" alt="Contoh Iklan Jelek 2">
+                        </div>
+                        <h5 class="fw-bold mt-3">Masalah: Terlalu Umum</h5>
+                        <p>"Jual Rumah Cepat" tidak memberi info apa-apa. Ini membuat semua orang (termasuk yang tidak niat) bertanya "Info dong?".</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="good-ads-pane" role="tabpanel" aria-labelledby="good-ads-tab" tabindex="0">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="gallery-image-wrapper">
+                            <span class="gallery-badge text-success"><i class="bi bi-check-circle-fill"></i></span>
+                            <img src="img/1.png" class="img-fluid" alt="Contoh Iklan Bagus 1">
+                        </div>
+                        <h5 class="fw-bold mt-3">Solusi: Kualifikasi di Judul</h5>
+                        <p>Dengan menulis "Khusus Karyawan Tetap (Skema KPR)" di judul, 90% orang yang tidak lolos BI checking akan sadar diri dan tidak akan chat.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="gallery-image-wrapper">
+                            <span class="gallery-badge text-success"><i class="bi bi-check-circle-fill"></i></span>
+                            <img src="img/gallery-1.jpeg" class="img-fluid" alt="Contoh Iklan Bagus 2">
+                        </div>
+                        <h5 class="fw-bold mt-3">Solusi: Edukasi di Awal</h5>
+                        <p>Memberi edukasi di <em>copywriting</em> ("3 Hal yang Harus Disiapkan..."). Hanya yang <em>serius</em> dan mau membaca yang akan lanjut menghubungi Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proof" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Bedah Kasus: Jaring vs Peluru</h2>
+            <p class="lead text-muted">Bukan janji, tapi data efisiensi dari klien properti kami.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="case-study-card case-study-before">
+                    <h3 class="fw-bold text-danger">SEBELUM (Metode Jaring)</h3>
+                    <p>Menggunakan iklan umum yang fokus pada "kuantitas" leads.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-number-before">214</div>
+                            <div class="text-muted">Total Chat</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-number-before">1</div>
+                            <div class="text-muted">Closing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="case-study-card case-study-after">
+                    <h3 class="fw-bold text-success">SESUDAH (Metode Sniper)</h3>
+                    <p>Menggunakan iklan penyaring yang fokus pada "kualitas" target.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-number-after">31</div>
+                            <div class="fw-bold">Total Chat</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-number-after">4</div>
+                            <div class="fw-bold">Closing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-lg-10 mx-auto" data-aos="fade-up" data-aos-delay="300">
+                <div class="card debrief-card h-100 p-5">
+                    <img src="img/profile.jpeg" alt="Rian H." class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <blockquote class="blockquote fs-5 mb-0">
+                        <p>"Dulu chat masuk 50/minggu, tapi 99% 'iseng'. Setelah ditangani <span class="brand-highlight">SNIPER ADS</span>, chat jadi 10/minggu, tapi 8 di antaranya <em>serius survei</em>. Bulan lalu <span class="text-highlight">closing 2 unit rumah</span> dari 18 lead berkualitas!"</p>
+                        <footer class="blockquote-footer mt-3 fs-6">Rian H. <cite title="Source Title">Agen Properti Independen</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Dinding Trofi Kami</h2>
+            <p class="lead text-muted">Klien yang targetnya sudah kami kunci.</p>
+        </div>
+
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+            
+            <div class="col-md-4">
+                <div class="testimonial-card text-center">
+                    <img src="img/foto-klien-1.jpeg" alt="Foto Klien 1" class="mb-3">
+                    <h5 class="fw-bold">Sarah T.</h5>
+                    <p class="text-muted mb-2">Owner Katering Diet</p>
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="fs-5 fst-italic">"Servisnya mantap! Tim <span class="brand-highlight">SNIPER ADS</span> benar-benar mengerti cara membuat <em>copywriting</em> yang 'kena' ke target market saya. <span class="text-highlight">Omzet naik 30%</span> bulan pertama."</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="testimonial-card text-center">
+                    <img src="img/foto-klien-2.jpeg" alt="Foto Klien 2" class="mb-3">
+                    <h5 class="fw-bold">Bima P.</h5>
+                    <p class="text-muted mb-2">Founder Jasa Cuci Sepatu</p>
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="fs-5 fst-italic">"Awalnya ragu, tapi laporannya transparan sekali. Saya jadi tahu iklan mana yang boros dan mana yang menghasilkan. <span class="text-highlight">Sekarang 100% percaya.</span>"</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="testimonial-card text-center">
+                    <img src="img/foto-klien-3.jpeg" alt="Foto Klien 3" class="mb-3">
+                    <h5 class="fw-bold">Andi W.</h5>
+                    <p class="text-muted mb-2">Marketing Manager Klinik Gigi</p>
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                    <p class="fs-5 fst-italic">"Sistem 'Iklan Penyaring' ini jenius. Jumlah reservasi via WA jadi <span class="text-highlight">lebih berkualitas</span>. Admin kami tidak kewalahan lagi."</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="offer" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Investasi Senjata Anda</h2>
+            <p class="lead text-muted">Pilih paket amunisi yang paling sesuai.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center align-items-center">
+            
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card pricing-card h-100">
+                    <div class="card-body p-5">
+                        <h5 class="fw-bold text-muted">STARTER</h5>
+                        <h2 class="display-4 fw-bolder my-3">Rp 1.8jt<span class="fs-5 text-muted">/bln</span></h2>
+                        <p class="text-muted">Ideal untuk Agen tunggal atau yang baru memulai iklan.</p>
+                        <hr class="my-4">
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Setup Iklan Meta (FB/IG)</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Riset Audiens & Copywriting</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Optimasi & Report Harian</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary w-100 cta-button">Pilih Paket Starter</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4" data-aos="zoom-in" data-aos-duration="500">
+                <div class="card pricing-card pricing-card-highlight h-100 position-relative">
+                    <span class="badge pricing-badge">Paling Populer</span>
+                    <div class="card-body p-5">
+                        <h5 class="fw-bold text-muted">PRO</h5>
+                        <h2 class="display-4 fw-bolder my-3">Rp 3.5jt<span class="fs-5 text-muted">/bln</span></h2>
+                        <p>Solusi lengkap untuk hasil maksimal & <em>branding</em>.</p>
+                        <hr class="my-4">
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i><strong>Semua fitur paket STARTER</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i><strong>Setup Iklan Google Ads</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i><strong>Pembuatan 1 Landing Page</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i>Konsultasi Strategi Mingguan</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary w-100 cta-button">Pilih Paket Pro</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card pricing-card h-100">
+                    <div class="card-body p-5">
+                        <h5 class="fw-bold text-muted">FULL</h5>
+                        <h2 class="display-4 fw-bolder my-3">Rp 7jt<span class="fs-5 text-muted">/bln</span></h2>
+                        <p>Untuk agensi atau tim yang butuh dominasi pasar.</p>
+                        <hr class="my-4">
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Semua fitur paket PRO</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Manajemen Retargeting Ads</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Setup Email Marketing (Leads)</strong></li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Dedicated Account Manager</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary w-100 cta-button">Pilih Paket Full</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="faq" class="container py-5 mt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Pusat Intelijen</h2>
+            <p class="lead text-muted">Beberapa pertanyaan yang sering kami terima.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <div class="accordion accordion-flush" id="faqAccordion">
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne">
+                            Apa bedanya dengan jasa iklan Meta Ads biasa?
+                        </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body p-4">
+                            Jasa biasa (Jaring) fokus pada <em>leads</em> sebanyak-banyaknya. Kami (Peluru) fokus pada <em>leads</em> yang paling siap <em>closing</em>. Kami sengaja merancang iklan untuk menyaring orang iseng, sehingga waktu Anda tidak habis meladeni chat "PHP".
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
+                            Apakah ada jaminan (garansi) closing?
+                        </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body p-4">
+                            Kami tidak memberi garansi <em>closing</em>, karena proses <em>closing</em> ada di tangan Anda (negosiasi, follow-up, dll). Kami memberi <strong>Garansi Kualitas Proses</strong>: yaitu garansi bahwa kami akan menjalankan riset, setup iklan, dan optimasi sesuai standar profesional tertinggi untuk mendatangkan <em>leads</em> berkualitas.
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree">
+                            Biaya paket sudah termasuk <em>budget</em> iklan (ad spend)?
+                        </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body p-4">
+                            Belum. Biaya paket adalah <em>management fee</em> untuk jasa kami (riset, desain, copywriting, optimasi, report). <em>Budget</em> iklan (yang akan dibayarkan ke Meta/Google) disiapkan terpisah oleh Anda.
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour">
+                            Berapa minimal <em>budget</em> iklan harian yang ideal?
+                        </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body p-4">
+                            Kami merekomendasikan minimal Rp 100.000,- per hari. Di bawah itu, algoritma Meta/Google akan terlalu lambat belajar dan hasilnya kurang optimal. Semakin besar budget, semakin cepat kami bisa menemukan pola audiens terbaik Anda.
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="container py-5 mt-5">
+        <div class="card bg-dark text-white p-5 text-center" style="border-radius: 4px;" data-aos="flip-up" data-aos-duration="600">
+            <div class="p-4">
+                <h2 class="display-5 fw-bolder"><span class="text-highlight">Siap Berhenti Meladeni Prospek Iseng?</span></h2>
+                <p class="lead my-4">Slot terbatas. Kami hanya mengambil 5 klien baru per bulan untuk menjaga kualitas dan fokus.</p>
+                <a href="#" class="btn btn-wa btn-lg fw-bold px-5 py-3 cta-button">
+                    <i class="bi bi-whatsapp me-2"></i>Ya, Saya Mau Konsultasi Gratis Sekarang!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 text-center mt-5 border-top border-white-50">
+        <div class="container">
+            <p class="mb-0 text-muted">&copy; 2025 SNIPER ADS. All rights reserved. | Jakarta Pusat, Indonesia. Didesain dengan Presisi ⚡</p>
+        </div>
+    </footer>
+
+    <a href="#" id="floating-wa" class="cta-button" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+    
+    <button id="scroll-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
+    <script>
+        // 1. Inisialisasi Animate On Scroll (AOS)
+        AOS.init({
+            duration: 700,
+            once: true,
+            easing: 'ease-out-cubic',
+        });
+
+        // 2. Inisialisasi TypeIt
+        document.addEventListener('DOMContentLoaded', function () {
+            new TypeIt("#hero-typewriter", {
+                // [PERUBAHAN] String lebih emosional
+                strings: ["yang 'cuma nanya'.", "yang 'iseng'.", "yang 'PHP'.", "yang <span class='text-highlight'>tidak qualified</span>."],
+                speed: 80,
+                deleteSpeed: 60,
+                breakLines: false,
+                waitUntilVisible: true,
+                loop: true,
+                afterString: (step, instance) => {
+                    instance.pause(3000); 
+                }
+            }).go();
+
+            // 3. Mengaktifkan semua tombol CTA
+            const waNumber = "6285894448143";
+            const waMessage = "Halo, saya tertarik dengan jasa iklan taktis dari SNIPER ADS.";
+            const waLink = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(waMessage)}`;
+            
+            const ctaButtons = document.querySelectorAll('.cta-button');
+            ctaButtons.forEach(button => {
+                button.setAttribute('href', waLink);
+                button.setAttribute('target', '_blank');
+            });
+
+            // 4. Aktifkan ScrollSpy untuk navigasi baru
+            const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+                target: '#mainNav',
+                offset: 100 
+            });
+
+            // 5. Logika Tombol Melayang
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            
+            window.onscroll = function() {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    scrollToTopBtn.style.display = "flex";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            };
+            
+            scrollToTopBtn.onclick = function(e) {
+                e.preventDefault(); 
+                document.body.scrollTop = 0; 
+                document.documentElement.scrollTop = 0; 
+            };
+        });
+    </script>
+    
+</body>
+</html>
