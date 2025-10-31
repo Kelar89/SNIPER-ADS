@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNIPER ADS - Jasa Iklan Taktis (Penyaring Prospek)</title>
     
+    <meta name="description" content="Berhenti pakai jaring, mulai pakai peluru. SNIPER ADS adalah jasa iklan taktis yang menyaring 90% prospek iseng agar Anda fokus pada target yang siap closing.">
+    <meta name="author" content="SNIPER ADS">
+    
+    <meta property="og:title" content="SNIPER ADS - Jasa Iklan Taktis">
+    <meta property="og:description" content="Jasa iklan lain memberi Anda LEADS. Kami memberi Anda TARGET.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Kelar89.github.io/SNIPER-ADS/">
+    <meta property="og:image" content="https://Kelar89.github.io/SNIPER-ADS/img/logo.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SNIPER ADS - Jasa Iklan Taktis">
+    <meta name="twitter:description" content="Jasa iklan lain memberi Anda LEADS. Kami memberi Anda TARGET.">
+    <meta name="twitter:image" content="https://Kelar89.github.io/SNIPER-ADS/img/logo.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -25,44 +39,198 @@
             --bs-light-bg: #2a2a2a; /* Latar Belakang Kartu */
             --bs-text-light: #e0e0e0;
             --bs-text-muted: #8a8a9e;
+
+            /* [BARU] Warna Neon Glow */
+            --neon-yellow: #FFC107;
+            --neon-yellow-glow: rgba(255, 193, 7, 0.7);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bs-dark);
             color: var(--bs-text-light);
+            word-wrap: break-word; 
+            cursor: none; /* Sembunyikan kursor asli */
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 800; /* Font tebal untuk kesan premium */
-            color: #fff; 
+        /* [BARU] Lapisan Overlay HUD Grid */
+        #hud-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* SVG Grid transparan */
+            background-image: 
+                linear-gradient(rgba(var(--bs-primary-rgb), 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(var(--bs-primary-rgb), 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1031; /* Tepat di bawah navbar */
+            pointer-events: none; /* Tidak bisa diklik */
+            opacity: 0.5;
         }
+
+        /* [BARU] Kursor Crosshair Taktis */
+        #cursor-crosshair {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--neon-yellow);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none; /* Tidak bisa diklik */
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+            
+            /* [BARU] Efek Scope Glow (Denyut setiap 5 detik) */
+            animation: scope-glow 5s infinite ease-in-out;
+        }
+        /* Garis bidik */
+        #cursor-crosshair::before,
+        #cursor-crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: var(--neon-yellow);
+            transition: all 0.2s ease;
+        }
+        /* Garis Vertikal */
+        #cursor-crosshair::before {
+            width: 2px;
+            height: 30px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scaleY(0.5);
+            opacity: 0.5;
+        }
+        /* Garis Horizontal */
+        #cursor-crosshair::after {
+            width: 30px;
+            height: 2px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scaleX(0.5);
+            opacity: 0.5;
+        }
+        /* State Hover/Interaktif */
+        body:has(a:hover, button:hover) #cursor-crosshair {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: #fff;
+        }
+        body:has(a:hover, button:hover) #cursor-crosshair::before,
+        body:has(a:hover, button:hover) #cursor-crosshair::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            background-color: #fff;
+        }
+        /* Sembunyikan di HP */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            #cursor-crosshair, #hud-overlay { display: none; }
+        }
+
+        @keyframes scope-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--neon-yellow-glow); }
+            50% { box-shadow: 0 0 20px var(--neon-yellow-glow); }
+        }
+
+
+        /* [PERUBAHAN] Navbar Transparan dengan Neon Line */
+        .navbar-transparent {
+            background-color: rgba(26, 26, 26, 0.8) !important; /* Hitam transparan */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-yellow-glow) !important;
+        }
+
+
+        h1.display-3 {
+            font-size: calc(1.775rem + 3.3vw);
+            font-weight: 800;
+        }
+        @media (min-width: 1200px) { h1.display-3 { font-size: 4rem; } }
+        
+        /* [PERUBAHAN] Ritme Tipografi */
+        h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            color: #fff; 
+            word-break: break-word;
+        }
+        h5 { font-weight: 700; } /* Sedikit lebih ringan */
+        p, li, label, .form-select {
+            font-weight: 400; /* Teks paragraf standar */
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .lead { font-weight: 400; }
+        .text-muted { font-weight: 400; }
+        .blockquote-footer { font-weight: 400; }
         
         .card {
-            border-radius: 4px; /* Sudut Tajam */
+            border-radius: 4px; 
             border: 1px solid #333;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             background-color: var(--bs-light-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Diperlukan untuk crosshair */
+            overflow: hidden; /* Sembunyikan crosshair yg keluar */
         }
+
+        /* [BARU] Microinteraction Card Hover */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2), 0 0 20px var(--neon-yellow-glow); /* Glow */
+            border-color: var(--neon-yellow);
+        }
+        /* Crosshair di pojok */
+        .card:hover::after {
+            content: '+';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--neon-yellow);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         
         .btn {
-            border-radius: 4px; /* Sudut Tajam */
+            border-radius: 4px; 
             font-weight: 600;
             padding: 0.75rem 1.5rem;
             box-shadow: 0 4px 15px rgba(var(--bs-primary-rgb), 0.2);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Untuk laser */
         }
 
         .btn-primary {
             background-color: var(--bs-primary);
             border-color: var(--bs-primary);
-            color: #1a1a1a; /* Teks hitam di tombol kuning */
+            color: #1a1a1a; 
         }
         
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.3);
         }
+
+        /* [BARU] Efek Laser CTA Hover */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: none;
+        }
+        .btn:hover::before {
+            left: 100%;
+            transition: left 0.5s ease;
+        }
+
 
         .btn-secondary {
             background-color: var(--bs-secondary);
@@ -71,18 +239,56 @@
             box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
-        /* Styling Bedah Kasus (Out of the Box) */
+        .btn-outline-primary {
+            color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            border-width: 2px;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #1a1a1a;
+        }
+
+        .solution-card {
+            border-radius: 4px;
+            padding: 2.5rem 2rem;
+            height: 100%;
+            background-color: var(--bs-light-bg);
+            border: 1px solid #333;
+        }
+        .solution-card .icon-stack {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .solution-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .solution-card ul li {
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+        }
+        .solution-card ul li i {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            font-size: 1.2rem;
+        }
+
         .case-study-card {
             border-radius: 4px;
             padding: 2rem;
             height: 100%;
         }
         .case-study-before {
-            background-color: #3b2a2a; /* Latar merah gelap */
+            background-color: #3b2a2a; 
             border-left: 5px solid var(--bs-danger);
         }
         .case-study-after {
-            background-color: #2a3b2b; /* Latar hijau gelap */
+            background-color: #2a3b2b; 
             border-left: 5px solid var(--bs-success);
         }
         .case-study-card .stat-number-before {
@@ -102,21 +308,10 @@
             background-color: var(--bs-light-bg);
         }
         
-        /* Pricing Tiers */
-        .pricing-card {
-            transition: all 0.3s ease;
-        }
-        .pricing-card:hover {
-            transform: scale(1.03);
-            border-color: var(--bs-primary);
-        }
         .pricing-card-highlight {
             transform: scale(1.05);
             box-shadow: 0 15px 50px rgba(var(--bs-primary-rgb), 0.2);
             border: 3px solid var(--bs-primary);
-        }
-        .pricing-card-highlight:hover {
-             transform: scale(1.07);
         }
         .pricing-badge {
             position: absolute;
@@ -151,24 +346,12 @@
             text-transform: uppercase;
         }
         
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 30px rgba(var(--bs-primary-rgb), 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb), 0);
-            }
-        }
         .hero-logo-wrapper {
             background-color: #2a2a2a;
             border-radius: 50%;
             padding: 2rem;
             display: inline-block;
             border: 2px solid var(--bs-primary);
-            /* [PERUBAHAN] Animasi diaktifkan kembali, tapi lebih lambat & halus */
             animation: pulse 4s infinite ease-in-out;
         }
         .hero-logo-wrapper img {
@@ -180,6 +363,12 @@
             border: 0;
             box-shadow: none;
         }
+        #problem .card:hover { /* Matikan efek hover khusus di sini */
+            transform: none;
+            box-shadow: none;
+            border-color: transparent;
+        }
+        #problem .card:hover::after { content: none; }
         
         #process .timeline-container {
             position: relative;
@@ -221,45 +410,17 @@
             justify-content: center;
             align-items: center;
         }
-        .timeline-item.left {
-            left: 0;
-        }
-        .timeline-item.right {
-            left: 50%;
-        }
-        .timeline-item.right::after {
-            left: -25px;
-        }
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+        .timeline-item.right::after { left: -25px; }
         .timeline-content {
             padding: 20px 30px;
             background-color: var(--bs-light-bg);
             border: 1px solid #333;
             position: relative;
             border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .timeline-content:hover {
-            border-color: var(--bs-primary);
-            transform: scale(1.03);
-        }
-        @media screen and (max-width: 768px) {
-            #process .timeline-container::after {
-                left: 31px;
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-item.left, .timeline-item.right {
-                left: 0%;
-            }
-            .timeline-item.left::after, .timeline-item.right::after {
-                left: 6px;
-            }
         }
         
-        /* Gallery Tabs */
         .gallery-tabs .nav-link {
             border: 0;
             border-radius: 4px;
@@ -292,20 +453,6 @@
             z-index: 10;
         }
         
-        /* Testimoni "Trophy Wall" */
-        .testimonial-card {
-            background-color: var(--bs-light-bg);
-            padding: 2.5rem;
-            border-radius: 4px;
-            height: 100%;
-            border: 1px solid #333;
-            transition: all 0.3s ease;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border-color: var(--bs-primary);
-        }
         .testimonial-card img {
             width: 80px;
             height: 80px;
@@ -317,7 +464,6 @@
             color: var(--bs-secondary);
         }
         
-        /* FAQ */
         .accordion-item {
             background-color: var(--bs-light-bg);
             border: 1px solid #333;
@@ -371,7 +517,7 @@
         }
         
         #floating-wa {
-            right: 20px; /* Posisi Kanan Bawah */
+            right: 20px; 
             background-color: #25D366;
             color: white;
         }
@@ -381,7 +527,7 @@
         }
         
         #scroll-to-top {
-            left: 20px; /* Posisi Kiri Bawah */
+            left: 20px; 
             background-color: var(--bs-primary);
             color: #1a1a1a;
             border: none;
@@ -392,7 +538,6 @@
             box-shadow: 0 6px 20px rgba(var(--bs-primary-rgb), 0.4);
         }
 
-        /* Highlight Teks Emosional */
         .text-highlight {
             color: var(--bs-primary);
             font-weight: 700;
@@ -403,11 +548,130 @@
             font-weight: 800;
             text-transform: uppercase;
         }
+
+        .audience-card {
+            display: flex;
+            align-items: center;
+            background-color: var(--bs-light-bg);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+            height: 100%; 
+        }
+        .audience-card i {
+            font-size: 2.5rem;
+            color: var(--bs-primary);
+            margin-right: 1.5rem;
+        }
+
+        .modal-header, .modal-body, .modal-footer {
+            background-color: var(--bs-light-bg);
+            border-color: #333;
+        }
+        .modal-header {
+            border-bottom: 1px solid var(--bs-primary);
+        }
+        .modal-title {
+            color: var(--bs-primary);
+            font-weight: 800;
+        }
+        .form-control {
+            background-color: #1a1a1a;
+            border-color: #333;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .form-control:focus {
+            background-color: #1a1a1a;
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 10px rgba(var(--bs-primary-rgb), 0.5);
+            color: #fff;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-select {
+            background-color: #1a1a1a;
+            border-color: #333;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .form-select:focus {
+            background-color: #1a1a1a;
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 10px rgba(var(--bs-primary-rgb), 0.5);
+            color: #fff;
+        }
+
+        /* [PERUBAHAN] Padding Section lebih besar */
+        section {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+        header#hero {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            section {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            #process .timeline-container::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0%;
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 6px;
+            }
+
+            .hero-buttons-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                max-width: 350px; 
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons-wrapper .btn {
+                width: 100%;
+            }
+
+            .hero-logo-wrapper {
+                padding: 1.5rem;
+                margin-top: 2rem;
+            }
+            .hero-logo-wrapper img {
+                max-width: 180px;
+            }
+
+            #floating-wa {
+                right: 15px;
+                bottom: 15px;
+            }
+            #scroll-to-top {
+                left: 15px;
+                bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body data-bs-theme="dark">
 
-    <nav class="navbar navbar-expand-lg bg-dark shadow-sm sticky-top border-bottom border-white-50">
+    <div id="hud-overlay"></div>
+    <div id="cursor-crosshair"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top navbar-transparent">
         <div class="container py-2">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
                 <img src="img/logo.png" alt="Sniper Ads Logo" height="40" class="me-2">
@@ -419,10 +683,12 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#solution">Solusi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#audience">Fokus Misi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#solution">Metode</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#process">Proses</a></li>
                     <li class="nav-item"><a class="nav-link" href="#proof">Studi Kasus</a></li>
                     <li class="nav-item"><a class="nav-link" href="#offer">Harga</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimoni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang Kami</a></li>
                     <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                 </ul>
                 <a href="#cta" class="btn btn-primary d-none d-lg-block cta-button">
@@ -445,9 +711,16 @@
                     Jasa iklan lain memberi Anda <span class="text-highlight">LEADS</span>. Kami memberi Anda <span class="text-highlight">TARGET</span>.
                 </p>
                 <p class="text-muted" data-aos="fade-right" data-aos-delay="300">Kami menyaring 90% prospek <span id="hero-typewriter"></span></p>
-                <a href="#offer" class="btn btn-primary btn-lg mt-3" data-aos="fade-right" data-aos-delay="400">
-                    Lihat Paket Jasa <i class="bi bi-arrow-down-short"></i>
-                </a>
+                
+                <div class="hero-buttons-wrapper" data-aos="fade-right" data-aos-delay="400">
+                    <a href="#offer" class="btn btn-primary btn-lg">
+                        🎯 Mulai Targeting Sekarang
+                    </a>
+                    <button type="button" class="btn btn-outline-primary btn-lg cta-button">
+                        💬 Tanya Strategi Gratis (WA)
+                    </button>
+                </div>
+
             </div>
             <div class="col-lg-5 text-center" data-aos="fade-left" data-aos-delay="400">
                 <div class="hero-logo-wrapper">
@@ -457,7 +730,84 @@
         </div>
     </header>
 
-    <section id="problem" class="container py-5 mt-5">
+    <section id="audience" class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">FOKUS MISI KAMI</h2>
+            <p class="lead text-muted">Kami spesialis dalam menyelesaikan 3 masalah utama di level <em>high-ticket</em>.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="audience-card card">
+                    <i class="bi bi-cash-stack"></i>
+                    <div>
+                        <h5 class="fw-bold">Anda Menjual Produk Mahal</h5>
+                        <p class="mb-0 text-muted">Produk/jasa Anda (di atas Rp 1jt) butuh kepercayaan dan edukasi, bukan sekadar 'impulse buy'.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="audience-card card">
+                    <i class="bi bi-person-check-fill"></i>
+                    <div>
+                        <h5 class="fw-bold">Anda Butuh Kualifikasi Ketat</h5>
+                        <p class="mb-0 text-muted">Klien Anda harus lolos syarat tertentu (misal: BI checking, punya budget, domisili, dll) sebelum dilayani.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="audience-card card">
+                    <i class="bi bi-telephone-inbound-fill"></i>
+                    <div>
+                        <h5 class="fw-bold">Waktu Tim Anda Habis di WA</h5>
+                        <p class="mb-0 text-muted">Admin Anda lebih banyak menghabiskan waktu menjawab "PHP" daripada memproses <em>closing</em>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">METODE KAMI: JARING vs PELURU</h2>
+            <p class="lead text-muted">Mengapa metode "Jaring" (Agensi Biasa) selalu gagal untuk klien <em>high-ticket</em>.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
+                <div class="solution-card card">
+                    <div class="icon-stack text-danger">
+                        <i class="bi bi-database-dash"></i>
+                    </div>
+                    <h3>METODE JARING<br><small class="fs-5 text-muted">(Agensi Biasa)</small></h3>
+                    <hr>
+                    <ul>
+                        <li><i class="bi bi-x-circle text-danger"></i>Mengejar KUANTITAS</li>
+                        <li><i class="bi bi-x-circle text-danger"></i>Menghasilkan "Chat Iseng"</li>
+                        <li><i class="bi bi-x-circle text-danger"></i>Targeting Umum (Demografi)</li>
+                        <li><i class="bi bi-x-circle text-danger"></i>Membuang Waktu Admin</li>
+                        <li><i class="bi bi-x-circle text-danger"></i><span class="text-highlight">ROI BONCOS</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-5" data-aos="fade-left" data-aos-delay="200">
+                <div class="solution-card card">
+                    <div class="icon-stack text-primary">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+                    <h3>METODE PELURU<br><small class="fs-5 text-muted">(SNIPER ADS)</small></h3>
+                    <hr>
+                    <ul>
+                        <li><i class="bi bi-check-circle text-success"></i>Mengejar KUALITAS</li>
+                        <li><i class="bi bi-check-circle text-success"></i>Menyaring Prospek "PHP"</li>
+                        <li><i class="bi bi-check-circle text-success"></i>Targeting Taktis (Psikografi)</li>
+                        <li><i class="bi bi-check-circle text-success"></i>Menghemat Waktu Produktif</li>
+                        <li><i class="bi bi-check-circle text-success"></i><span class="text-highlight">ROI PRESISI</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Waktu Anda Terlalu Berharga...</h2>
             <p class="lead text-muted">...untuk dihabiskan pada 3 masalah klasik ini.</p>
@@ -487,26 +837,7 @@
         </div>
     </section>
 
-    <section id="solution" class="container py-5 mt-5">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-8 mx-auto" data-aos="fade-right">
-                <h2 class="fw-bolder display-5 mb-4">Solusi Kami: <br>Sistem Penyaringan Prospek.</h2>
-                <p class="lead mb-4">Iklan "biasa" mengejar <em>kuantitas</em>. Kami mengejar <em>kualitas</em>. Kami merancang iklan yang <span class="text-highlight">sengaja menolak</span> orang iseng agar hanya prospek serius yang menghubungi Anda.</p>
-                <ul class="list-unstyled fs-5 mt-4">
-                    <li class="mb-3 d-flex">
-                        <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
-                        <div><strong><span class="text-highlight">Menarik Prospek 'Serius'</span></strong><br><small>Fokus pada audiens yang punya <em>masalah nyata</em> & <em>kemampuan finansial</em>.</small></div>
-                    </li>
-                    <li class="mb-3 d-flex">
-                        <i class="bi bi-check-circle-fill text-success me-3 mt-1"></i>
-                        <div><strong><span class="text-highlight">Hemat Waktu Produktif</span></strong><br><small>Anda bisa langsung fokus ke <em>closing</em>, bukan edukasi dari nol.</small></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="process" class="container py-5 mt-5">
+    <section id="process" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Metodologi Eksekusi</h2>
             <p class="lead text-muted">Bukan proses biasa. Ini adalah metodologi taktis.</p>
@@ -514,28 +845,28 @@
         
         <div class="timeline-container" data-aos="fade-up" data-aos-delay="100">
             <div class="timeline-item left" data-step="1">
-                <div class="timeline-content text-center">
+                <div class="timeline-content text-center card">
                     <i class="bi bi-crosshair fs-1 text-primary mb-3"></i>
                     <h5 class="fw-bold">TARGET RECON</h5>
                     <p>Kami membedah psikografi & <em>pain point</em> klien ideal Anda, bukan sekadar demografi.</p>
                 </div>
             </div>
             <div class="timeline-item right" data-step="2">
-                <div class="timeline-content text-center">
+                <div class="timeline-content text-center card">
                     <i class="bi bi-sliders fs-1 text-primary mb-3"></i>
                     <h5 class="fw-bold">CALIBRATE & FIRE</h5>
                     <p>Copywriting & visual dikalibrasi untuk menyaring 'noise' dan menembak target berkualitas.</p>
                 </div>
             </div>
             <div class="timeline-item left" data-step="3">
-                <div class="timeline-content text-center">
+                <div class="timeline-content text-center card">
                     <i class="bi bi-lightning-charge-fill fs-1 text-primary mb-3"></i>
                     <h5 class="fw-bold">SPOTTER ADJUSTMENT</h5>
                     <p>Anggaran dioptimasi harian, dialihkan hanya ke 'tembakan' yang terbukti menghasilkan ROI.</p>
                 </div>
             </div>
             <div class="timeline-item right" data-step="4">
-                <div class="timeline-content text-center">
+                <div class="timeline-content text-center card">
                     <i class="bi bi-bullseye fs-1 text-primary mb-3"></i>
                     <h5 class="fw-bold">B.D.A (Battle Damage Assessment)</h5>
                     <p>Laporan transparan. Anda melihat data, target yang kena, dan hasil akhir.</p>
@@ -545,7 +876,7 @@
     </section>
     
 
-    <section id="gallery" class="container py-5 mt-5">
+    <section id="gallery" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Bukan Janji, Ini Buktinya.</h2>
             <p class="lead text-muted">Perbedaan antara "Jaring" dan "Peluru" kami.</p>
@@ -568,17 +899,17 @@
             <div class="tab-pane fade show active" id="bad-ads-pane" role="tabpanel" aria-labelledby="bad-ads-tab" tabindex="0">
                 <div class="row g-4">
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="gallery-image-wrapper">
+                        <div class="gallery-image-wrapper card">
                             <span class="gallery-badge text-danger"><i class="bi bi-x-circle-fill"></i></span>
-                            <img src="img/2.png" class="img-fluid" alt="Contoh Iklan Jelek 1">
+                            <img src="img/2.png" class="img-fluid" alt="Contoh Iklan Jelek 1" loading="lazy">
                         </div>
                         <h5 class="fw-bold mt-3">Masalah: Fokus Harga Murah</h5>
                         <p>Menggunakan <em>clickbait</em> "HARGA MURAH" hanya menarik orang iseng yang membandingkan harga, bukan yang mencari kualitas.</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="gallery-image-wrapper">
+                        <div class="gallery-image-wrapper card">
                             <span class="gallery-badge text-danger"><i class="bi bi-x-circle-fill"></i></span>
-                            <img src="img/gallery-3.jpeg" class="img-fluid" alt="Contoh Iklan Jelek 2">
+                            <img src="img/gallery-3.jpeg" class="img-fluid" alt="Contoh Iklan Jelek 2" loading="lazy">
                         </div>
                         <h5 class="fw-bold mt-3">Masalah: Terlalu Umum</h5>
                         <p>"Jual Rumah Cepat" tidak memberi info apa-apa. Ini membuat semua orang (termasuk yang tidak niat) bertanya "Info dong?".</p>
@@ -588,17 +919,17 @@
             <div class="tab-pane fade" id="good-ads-pane" role="tabpanel" aria-labelledby="good-ads-tab" tabindex="0">
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <div class="gallery-image-wrapper">
+                        <div class="gallery-image-wrapper card">
                             <span class="gallery-badge text-success"><i class="bi bi-check-circle-fill"></i></span>
-                            <img src="img/1.png" class="img-fluid" alt="Contoh Iklan Bagus 1">
+                            <img src="img/1.png" class="img-fluid" alt="Contoh Iklan Bagus 1" loading="lazy">
                         </div>
                         <h5 class="fw-bold mt-3">Solusi: Kualifikasi di Judul</h5>
                         <p>Dengan menulis "Khusus Karyawan Tetap (Skema KPR)" di judul, 90% orang yang tidak lolos BI checking akan sadar diri dan tidak akan chat.</p>
                     </div>
                     <div class="col-md-6">
-                        <div class="gallery-image-wrapper">
+                        <div class="gallery-image-wrapper card">
                             <span class="gallery-badge text-success"><i class="bi bi-check-circle-fill"></i></span>
-                            <img src="img/gallery-1.jpeg" class="img-fluid" alt="Contoh Iklan Bagus 2">
+                            <img src="img/gallery-1.jpeg" class="img-fluid" alt="Contoh Iklan Bagus 2" loading="lazy">
                         </div>
                         <h5 class="fw-bold mt-3">Solusi: Edukasi di Awal</h5>
                         <p>Memberi edukasi di <em>copywriting</em> ("3 Hal yang Harus Disiapkan..."). Hanya yang <em>serius</em> dan mau membaca yang akan lanjut menghubungi Anda.</p>
@@ -608,14 +939,14 @@
         </div>
     </section>
 
-    <section id="proof" class="container py-5 mt-5">
+    <section id="proof" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Bedah Kasus: Jaring vs Peluru</h2>
             <p class="lead text-muted">Bukan janji, tapi data efisiensi dari klien properti kami.</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                <div class="case-study-card case-study-before">
+                <div class="case-study-card case-study-before card">
                     <h3 class="fw-bold text-danger">SEBELUM (Metode Jaring)</h3>
                     <p>Menggunakan iklan umum yang fokus pada "kuantitas" leads.</p>
                     <div class="row">
@@ -631,7 +962,7 @@
                 </div>
             </div>
             <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
-                <div class="case-study-card case-study-after">
+                <div class="case-study-card case-study-after card">
                     <h3 class="fw-bold text-success">SESUDAH (Metode Sniper)</h3>
                     <p>Menggunakan iklan penyaring yang fokus pada "kualitas" target.</p>
                     <div class="row">
@@ -651,7 +982,7 @@
         <div class="row mt-4">
             <div class="col-lg-10 mx-auto" data-aos="fade-up" data-aos-delay="300">
                 <div class="card debrief-card h-100 p-5">
-                    <img src="img/profile.jpeg" alt="Rian H." class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <i class="bi bi-quote fs-1 text-primary mb-3"></i>
                     <blockquote class="blockquote fs-5 mb-0">
                         <p>"Dulu chat masuk 50/minggu, tapi 99% 'iseng'. Setelah ditangani <span class="brand-highlight">SNIPER ADS</span>, chat jadi 10/minggu, tapi 8 di antaranya <em>serius survei</em>. Bulan lalu <span class="text-highlight">closing 2 unit rumah</span> dari 18 lead berkualitas!"</p>
                         <footer class="blockquote-footer mt-3 fs-6">Rian H. <cite title="Source Title">Agen Properti Independen</cite></footer>
@@ -661,7 +992,7 @@
         </div>
     </section>
 
-    <section id="testimonials" class="container py-5 mt-5">
+    <section id="testimonials" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Dinding Trofi Kami</h2>
             <p class="lead text-muted">Klien yang targetnya sudah kami kunci.</p>
@@ -670,8 +1001,8 @@
         <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
             
             <div class="col-md-4">
-                <div class="testimonial-card text-center">
-                    <img src="img/foto-klien-1.jpeg" alt="Foto Klien 1" class="mb-3">
+                <div class="testimonial-card text-center card">
+                    <img src="img/foto-klien-1.jpeg" alt="Foto Klien 1" class="mb-3" loading="lazy">
                     <h5 class="fw-bold">Sarah T.</h5>
                     <p class="text-muted mb-2">Owner Katering Diet</p>
                     <div class="stars mb-3">
@@ -686,8 +1017,8 @@
             </div>
 
             <div class="col-md-4">
-                <div class="testimonial-card text-center">
-                    <img src="img/foto-klien-2.jpeg" alt="Foto Klien 2" class="mb-3">
+                <div class="testimonial-card text-center card">
+                    <img src="img/foto-klien-2.jpeg" alt="Foto Klien 2" class="mb-3" loading="lazy">
                     <h5 class="fw-bold">Bima P.</h5>
                     <p class="text-muted mb-2">Founder Jasa Cuci Sepatu</p>
                     <div class="stars mb-3">
@@ -702,8 +1033,8 @@
             </div>
 
             <div class="col-md-4">
-                <div class="testimonial-card text-center">
-                    <img src="img/foto-klien-3.jpeg" alt="Foto Klien 3" class="mb-3">
+                <div class="testimonial-card text-center card">
+                    <img src="img/foto-klien-3.jpeg" alt="Foto Klien 3" class="mb-3" loading="lazy">
                     <h5 class="fw-bold">Andi W.</h5>
                     <p class="text-muted mb-2">Marketing Manager Klinik Gigi</p>
                     <div class="stars mb-3">
@@ -720,7 +1051,28 @@
         </div>
     </section>
 
-    <section id="offer" class="container py-5 mt-5">
+    <section id="about" class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bolder display-5">Dari Balik Lensa</h2>
+            <p class="lead text-muted">Kredibilitas di balik presisi kami.</p>
+        </div>
+        <div class="card p-5" data-aos="fade-up">
+            <div class="row align-items-center g-4">
+                <div class="col-md-4 text-center">
+                    <img src="img/profile.png" alt="Foto Pendiri Sniper Ads" style="max-width: 250px; border: 4px solid var(--bs-primary);" loading="lazy">
+                </div>
+                <div class="col-md-8">
+                    <h4><span class="text-highlight">[AMI UMAR]</span></h4>
+                    <h5 class="text-muted mb-3">Lead Strategist & Founder SNIPER ADS</h5>
+                    <p>Saya bukan agensi. Saya adalah spesialis. Selama [5] tahun, saya lelah melihat pemilik bisnis (seperti Anda) membuang jutaan rupiah untuk <em>leads</em> sampah yang hanya bertanya "Info dong?".</p>
+                    <p><span class="brand-highlight">SNIPER ADS</span> lahir dari frustrasi itu. Misi kami bukan memberi Anda 1000 <em>leads</em>, tapi 10 <em>target</em> yang siap <em>closing</em>. Kami menggunakan metodologi penyaringan yang ketat untuk memastikan hanya prospek paling berkualitas yang sampai ke WhatsApp Anda.</p>
+                    <p class="fw-bold">Waktu Anda berharga. Berhentilah membuangnya untuk 'noise'.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="offer" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Investasi Senjata Anda</h2>
             <p class="lead text-muted">Pilih paket amunisi yang paling sesuai.</p>
@@ -731,7 +1083,7 @@
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="card pricing-card h-100">
                     <div class="card-body p-5">
-                        <h5 class="fw-bold text-muted">MARKSMAN</h5>
+                        <h5 class="fw-bold">MARKSMAN <small class="text-muted fs-6 fw-normal">(Penembak Jitu)</small></h5>
                         <h2 class="display-4 fw-bolder my-3">Rp 1.8jt<span class="fs-5 text-muted">/bln</span></h2>
                         <p class="text-muted">Ideal untuk Agen tunggal atau yang baru memulai iklan.</p>
                         <hr class="my-4">
@@ -741,7 +1093,7 @@
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Optimasi & Report Harian</li>
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
                         </ul>
-                        <a href="#" class="btn btn-outline-primary w-100 cta-button">Pilih Paket Marksman</a>
+                        <a href="#" class="btn btn-outline-primary w-100 cta-button">Pilih Paket Marksman (via WA)</a>
                     </div>
                 </div>
             </div>
@@ -750,7 +1102,7 @@
                 <div class="card pricing-card pricing-card-highlight h-100 position-relative">
                     <span class="badge pricing-badge">Paling Populer</span>
                     <div class="card-body p-5">
-                        <h5 class="fw-bold text-muted">SNIPER</h5>
+                        <h5 class="fw-bold">SNIPER <small class="text-muted fs-6 fw-normal">(Paket Utama)</small></h5>
                         <h2 class="display-4 fw-bolder my-3">Rp 3.5jt<span class="fs-5 text-muted">/bln</span></h2>
                         <p>Solusi lengkap untuk hasil maksimal & <em>branding</em>.</p>
                         <hr class="my-4">
@@ -761,7 +1113,9 @@
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i>Konsultasi Strategi Mingguan</li>
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-secondary me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
                         </ul>
-                        <a href="#" class="btn btn-secondary w-100 cta-button">Pilih Paket Sniper</a>
+                        <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#formModal">
+                            Pilih Paket Sniper (via Form)
+                        </button>
                     </div>
                 </div>
             </div>
@@ -769,7 +1123,7 @@
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="card pricing-card h-100">
                     <div class="card-body p-5">
-                        <h5 class="fw-bold text-muted">GHOST</h5>
+                        <h5 class="fw-bold">GHOST <small class="text-muted fs-6 fw-normal">(Operasi Siluman)</small></h5>
                         <h2 class="display-4 fw-bolder my-3">Rp 7jt<span class="fs-5 text-muted">/bln</span></h2>
                         <p>Untuk agensi atau tim yang butuh dominasi pasar.</p>
                         <hr class="my-4">
@@ -780,7 +1134,9 @@
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Dedicated Account Manager</li>
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Garansi Kualitas Proses (DP 60%)</li>
                         </ul>
-                        <a href="#" class="btn btn-outline-primary w-100 cta-button">Pilih Paket Ghost</a>
+                        <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#formModal">
+                            Pilih Paket Ghost (via Form)
+                        </button>
                     </div>
                 </div>
             </div>
@@ -788,7 +1144,7 @@
         </div>
     </section>
 
-    <section id="faq" class="container py-5 mt-5">
+    <section id="faq" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="fw-bolder display-5">Pusat Intelijen</h2>
             <p class="lead text-muted">Beberapa pertanyaan yang sering kami terima.</p>
@@ -798,7 +1154,7 @@
             <div class="col-lg-8 mx-auto" data-aos="fade-up" data-aos-delay="100">
                 <div class="accordion accordion-flush" id="faqAccordion">
                     
-                    <div class="accordion-item">
+                    <div class="accordion-item card">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne">
                             Apa bedanya dengan jasa iklan Meta Ads biasa?
@@ -811,7 +1167,7 @@
                         </div>
                     </div>
 
-                    <div class="accordion-item">
+                    <div class="accordion-item card">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
                             Apakah ada jaminan (garansi) closing?
@@ -824,7 +1180,7 @@
                         </div>
                     </div>
 
-                    <div class="accordion-item">
+                    <div class="accordion-item card">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree">
                             Biaya paket sudah termasuk <em>budget</em> iklan (ad spend)?
@@ -837,7 +1193,7 @@
                         </div>
                     </div>
 
-                    <div class="accordion-item">
+                    <div class="accordion-item card">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour">
                             Berapa minimal <em>budget</em> iklan harian yang ideal?
@@ -855,7 +1211,7 @@
         </div>
     </section>
 
-    <section id="cta" class="container py-5 mt-5">
+    <section id="cta" class="container">
         <div class="card bg-dark text-white p-5 text-center" style="border-radius: 4px;" data-aos="flip-up" data-aos-duration="600">
             <div class="p-4">
                 <h2 class="display-5 fw-bolder"><span class="text-highlight">Siap Berhenti Meladeni Prospek Iseng?</span></h2>
@@ -873,6 +1229,43 @@
         </div>
     </footer>
 
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">Mulai Brief Taktis Anda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Isi form ini untuk klien serius (Paket Sniper & Ghost). Tim kami akan me-review brief Anda dalam 1x24 jam.</p>
+                    <form action="https://formspree.io/f/XXXXXX" method="POST">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Alamat Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="budget" class="form-label">Estimasi Budget Iklan Bulanan</label>
+                            <select class="form-select" id="budget" name="budget" required>
+                                <option value="">- Pilih Budget -</option>
+                                <option value="10-20jt">Rp 10jt - Rp 20jt</option>
+                                <option value="20-50jt">Rp 20jt - Rp 50jt</option>
+                                <option value="50jt+">Rp 50jt+</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pesan" class="form-label">Jelaskan Kebutuhan Anda</label>
+                            <textarea class="form-control" id="pesan" name="pesan" rows="4" placeholder="Contoh: Saya agen properti premium, butuh leads yang sudah ter-kualifikasi..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Kirim Brief</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <a href="#" id="floating-wa" class="cta-button" target="_blank">
         <i class="bi bi-whatsapp"></i>
     </a>
@@ -897,7 +1290,7 @@
         // 2. Event Listener Utama
         document.addEventListener('DOMContentLoaded', function () {
             
-            // [PERUBAHAN] Typewriter diaktifkan kembali
+            // 3. Typewriter diaktifkan kembali
             new TypeIt("#hero-typewriter", {
                 strings: ["yang 'cuma nanya'.", "yang 'iseng'.", "yang 'PHP'.", "yang <span class='text-highlight'>tidak qualified</span>."],
                 speed: 80,
@@ -910,7 +1303,7 @@
                 }
             }).go();
 
-            // 3. Mengaktifkan semua tombol CTA
+            // 4. Mengaktifkan semua tombol CTA (Hanya yang ke WA)
             const waNumber = "6285894448143";
             const waMessage = "Halo, saya tertarik dengan jasa iklan taktis dari SNIPER ADS.";
             const waLink = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(waMessage)}`;
@@ -921,13 +1314,13 @@
                 button.setAttribute('target', '_blank');
             });
 
-            // 4. Aktifkan ScrollSpy untuk navigasi baru
+            // 5. Aktifkan ScrollSpy untuk navigasi baru
             const scrollSpy = new bootstrap.ScrollSpy(document.body, {
                 target: '#mainNav',
                 offset: 100 
             });
 
-            // 5. Logika Tombol Melayang
+            // 6. Logika Tombol Melayang
             const scrollToTopBtn = document.getElementById('scroll-to-top');
             
             window.onscroll = function() {
@@ -943,6 +1336,23 @@
                 document.body.scrollTop = 0; 
                 document.documentElement.scrollTop = 0; 
             };
+            
+            // [BARU] Logika Kursor Taktis
+            const crosshair = document.getElementById('cursor-crosshair');
+            if (window.matchMedia("(min-width: 769px)").matches) { // Hanya aktifkan di desktop
+                document.addEventListener('mousemove', (e) => {
+                    crosshair.style.left = e.clientX + 'px';
+                    crosshair.style.top = e.clientY + 'px';
+                });
+
+                document.addEventListener('mouseleave', () => {
+                    crosshair.style.opacity = '0';
+                });
+                document.addEventListener('mouseenter', () => {
+                    crosshair.style.opacity = '1';
+                });
+            }
+
         });
     </script>
     
