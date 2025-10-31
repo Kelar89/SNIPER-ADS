@@ -16,8 +16,8 @@
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SNIPER ADS - Jasa Iklan Taktis">
-    <meta name="twitter:description" content="Jasa iklan lain memberi Anda LEADS. Kami memberi Anda TARGET.">
-    <meta name="twitter:image" content="https://Kelar89.github.io/SNIPER-ADS/img/logo.png">
+    <meta property="twitter:description" content="Jasa iklan lain memberi Anda LEADS. Kami memberi Anda TARGET.">
+    <meta property="twitter:image" content="https://Kelar89.github.io/SNIPER-ADS/img/logo.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
@@ -278,36 +278,74 @@
             font-size: 1.2rem;
         }
 
-        .case-study-card {
+        /* [PERUBAHAN] CSS "Bedah Kasus" Dossier */
+        .dossier-card {
+            background-color: var(--bs-light-bg);
+            border: 1px solid #444;
+            border-top: 5px solid var(--bs-primary);
             border-radius: 4px;
-            padding: 2rem;
-            height: 100%;
         }
-        .case-study-before {
-            background-color: #3b2a2a; 
-            border-left: 5px solid var(--bs-danger);
+        .dossier-data {
+            padding: 2.5rem;
+            border-right: 1px solid #444;
         }
-        .case-study-after {
-            background-color: #2a3b2b; 
-            border-left: 5px solid var(--bs-success);
+        .dossier-debrief {
+            padding: 2.5rem;
+            background-color: #1f1f1f; /* Sedikit lebih gelap */
         }
-        .case-study-card .stat-number-before {
-            font-size: 3.5rem;
+        .data-point {
+            margin-bottom: 1.5rem;
+        }
+        .data-point .stat-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--bs-text-muted);
+        }
+        .data-point .data-before {
+            font-size: 3rem;
             font-weight: 800;
             color: var(--bs-danger);
             text-decoration: line-through;
             opacity: 0.8;
+            line-height: 1;
         }
-        .case-study-card .stat-number-after {
-            font-size: 3.5rem;
+        .data-point .data-after {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--bs-success);
+            line-height: 1;
+        }
+        .mission-analysis .analysis-item {
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--bs-success);
         }
-        .debrief-card {
-            border-left: 10px solid var(--bs-primary);
-            background-color: var(--bs-light-bg);
+        
+        /* [BARU] Styling Panah Carousel Taktis */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-image: none; /* Hapus SVG default Bootstrap */
+            font-family: 'bootstrap-icons';
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--bs-primary);
+        }
+        .carousel-control-prev-icon::before {
+            content: '\F229'; /* bi-chevron-left */
+        }
+        .carousel-control-next-icon::before {
+            content: '\F231'; /* bi-chevron-right */
+        }
+        /* Posisikan panah agar lebih terlihat */
+        .carousel-control-prev {
+            left: -50px;
+        }
+        .carousel-control-next {
+            right: -50px;
         }
         
+        /* Pricing Tiers */
         .pricing-card-highlight {
             transform: scale(1.05);
             box-shadow: 0 15px 50px rgba(var(--bs-primary-rgb), 0.2);
@@ -613,6 +651,12 @@
             padding-bottom: 5rem;
         }
 
+        #about .card .img-fluid {
+            max-width: 350px; 
+            height: auto; 
+            border: 4px solid var(--bs-primary);
+        }
+
 
         @media screen and (max-width: 768px) {
             section {
@@ -654,6 +698,14 @@
             .hero-logo-wrapper img {
                 max-width: 180px;
             }
+            #about .card .img-fluid {
+                max-width: 250px; 
+            }
+            
+            .dossier-data {
+                border-right: none;
+                border-bottom: 1px solid #444;
+            }
 
             #floating-wa {
                 right: 15px;
@@ -662,6 +714,12 @@
             #scroll-to-top {
                 left: 15px;
                 bottom: 15px;
+            }
+
+            /* [BARU] Posisikan Panah Carousel di HP */
+            .carousel-control-prev, .carousel-control-next {
+                left: -10px;
+                right: -10px;
             }
         }
     </style>
@@ -724,7 +782,7 @@
             </div>
             <div class="col-lg-5 text-center" data-aos="fade-left" data-aos-delay="400">
                 <div class="hero-logo-wrapper">
-                    <img src="img/logo.png" class="img-fluid" alt="Logo Sniper Ads">
+                    <img src="img/logo.png" class="img-fluid" alt="Logo Sniper Ads" loading="lazy">
                 </div>
             </div>
         </div>
@@ -941,54 +999,145 @@
 
     <section id="proof" class="container">
         <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="fw-bolder display-5">Bedah Kasus: Jaring vs Peluru</h2>
-            <p class="lead text-muted">Bukan janji, tapi data efisiensi dari klien properti kami.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                <div class="case-study-card case-study-before card">
-                    <h3 class="fw-bold text-danger">SEBELUM (Metode Jaring)</h3>
-                    <p>Menggunakan iklan umum yang fokus pada "kuantitas" leads.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="stat-number-before">214</div>
-                            <div class="text-muted">Total Chat</div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-number-before">1</div>
-                            <div class="text-muted">Closing</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
-                <div class="case-study-card case-study-after card">
-                    <h3 class="fw-bold text-success">SESUDAH (Metode Sniper)</h3>
-                    <p>Menggunakan iklan penyaring yang fokus pada "kualitas" target.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="stat-number-after">31</div>
-                            <div class="fw-bold">Total Chat</div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-number-after">4</div>
-                            <div class="fw-bold">Closing</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2 class="fw-bolder display-5">Bedah Kasus: Berkas Taktis</h2>
         </div>
         
-        <div class="row mt-4">
-            <div class="col-lg-10 mx-auto" data-aos="fade-up" data-aos-delay="300">
-                <div class="card debrief-card h-100 p-5">
-                    <i class="bi bi-quote fs-1 text-primary mb-3"></i>
-                    <blockquote class="blockquote fs-5 mb-0">
-                        <p>"Dulu chat masuk 50/minggu, tapi 99% 'iseng'. Setelah ditangani <span class="brand-highlight">SNIPER ADS</span>, chat jadi 10/minggu, tapi 8 di antaranya <em>serius survei</em>. Bulan lalu <span class="text-highlight">closing 2 unit rumah</span> dari 18 lead berkualitas!"</p>
-                        <footer class="blockquote-footer mt-3 fs-6">Rian H. <cite title="Source Title">Agen Properti Independen</cite></footer>
-                    </blockquote>
+        <div id="caseStudyCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up" data-aos-delay="100">
+            <div class="carousel-inner">
+                
+                <div class="carousel-item active">
+                    <div class="card dossier-card">
+                        <div class="row g-0">
+                            <div class="col-lg-6 dossier-data">
+                                <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
+                                <p class="text-muted mb-4">Studi Kasus #001: Klien Properti (Agen Rian H.)</p>
+                                
+                                <div class="data-point">
+                                    <span class="stat-label">METODE JARING (SEBELUM)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-before">214</div><span class="text-muted">Total Chat</span></div>
+                                        <div class="col-6"><div class="data-before">1</div><span class="text-muted">Closing</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="data-point">
+                                    <span class="stat-label">METODE PELURU (SESUDAH)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-after">31</div><span class="fw-bold">Total Chat</span></div>
+                                        <div class="col-6"><div class="data-after">4</div><span class="fw-bold">Closing</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4" style="border-color: var(--bs-primary); border-width: 2px; opacity: 0.7;">
+                                <div class="mission-analysis">
+                                    <h5 class="text-muted text-uppercase">Analisis Misi</h5>
+                                    <div class="analysis-item"><i class="bi bi-arrow-down-circle me-2"></i>-85% CHAT SAMPAH</div>
+                                    <div class="analysis-item"><i class="bi bi-arrow-up-circle me-2"></i>+400% KONVERSI</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 dossier-debrief">
+                                <h3 class="mb-4"><i class="bi bi-chat-left-quote me-2"></i>Laporan Lapangan</h3>
+                                <i class="bi bi-quote fs-1 text-primary mb-3"></i>
+                                <blockquote class="blockquote fs-5 mb-0">
+                                    <p>"Dulu chat masuk 50/minggu, tapi 99% 'iseng'. Setelah ditangani <span class="brand-highlight">SNIPER ADS</span>, chat jadi 10/minggu, tapi 8 di antaranya <em>serius survei</em>. Bulan lalu <span class="text-highlight">closing 2 unit rumah</span> dari 18 lead berkualitas!"</p>
+                                    <footer class="blockquote-footer mt-3 fs-6">Rian H. <cite title="Source Title">Agen Properti Independen</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="carousel-item">
+                    <div class="card dossier-card">
+                        <div class="row g-0">
+                            <div class="col-lg-6 dossier-data">
+                                <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
+                                <p class="text-muted mb-4">Studi Kasus #002: Klien Klinik Gigi (Andi W.)</p>
+                                
+                                <div class="data-point">
+                                    <span class="stat-label">METODE JARING (SEBELUM)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-before">120</div><span class="text-muted">Reservasi WA</span></div>
+                                        <div class="col-6"><div class="data-before">15</div><span class="text-muted">Kedatangan</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="data-point">
+                                    <span class="stat-label">METODE PELURU (SESUDAH)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-after">45</div><span class="fw-bold">Reservasi WA</span></div>
+                                        <div class="col-6"><div class="data-after">38</div><span class="fw-bold">Kedatangan</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4" style="border-color: var(--bs-primary); border-width: 2px; opacity: 0.7;">
+                                <div class="mission-analysis">
+                                    <h5 class="text-muted text-uppercase">Analisis Misi</h5>
+                                    <div class="analysis-item"><i class="bi bi-arrow-down-circle me-2"></i>-62% CHAT ISENG</div>
+                                    <div class="analysis-item"><i class="bi bi-arrow-up-circle me-2"></i>+253% KONVERSI</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 dossier-debrief">
+                                <h3 class="mb-4"><i class="bi bi-chat-left-quote me-2"></i>Laporan Lapangan</h3>
+                                <i class="bi bi-quote fs-1 text-primary mb-3"></i>
+                                <blockquote class="blockquote fs-5 mb-0">
+                                    <p>"Sistem 'Iklan Penyaring' ini jenius. Dulu admin kami kewalahan membalas WA yang 90% batal. Sekarang, jumlah reservasi via WA jadi <span class="text-highlight">jauh lebih berkualitas</span> dan hampir semua datang. Admin kami tidak kewalahan lagi."</p>
+                                    <footer class="blockquote-footer mt-3 fs-6">Andi W. <cite title="Source Title">Marketing Manager Klinik Gigi</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="card dossier-card">
+                        <div class="row g-0">
+                            <div class="col-lg-6 dossier-data">
+                                <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
+                                <p class="text-muted mb-4">Studi Kasus #003: Klien Katering Diet (Sarah T.)</p>
+                                
+                                <div class="data-point">
+                                    <span class="stat-label">METODE JARING (SEBELUM)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-before">1.5x</div><span class="text-muted">ROAS</span></div>
+                                        <div class="col-6"><div class="data-before">22</div><span class="text-muted">Order/Minggu</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="data-point">
+                                    <span class="stat-label">METODE PELURU (SESUDAH)</span>
+                                    <div class="row">
+                                        <div class="col-6"><div class="data-after">4.2x</div><span class="fw-bold">ROAS</span></div>
+                                        <div class="col-6"><div class="data-after">78</div><span class="fw-bold">Order/Minggu</span></div>
+                                    </div>
+                                </div>
+                                <hr class="my-4" style="border-color: var(--bs-primary); border-width: 2px; opacity: 0.7;">
+                                <div class="mission-analysis">
+                                    <h5 class="text-muted text-uppercase">Analisis Misi</h5>
+                                    <div class="analysis-item"><i class="bi bi-arrow-up-circle me-2"></i>+350% ORDER</div>
+                                    <div class="analysis-item"><i class="bi bi-arrow-up-circle me-2"></i>+280% ROAS</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 dossier-debrief">
+                                <h3 class="mb-4"><i class="bi bi-chat-left-quote me-2"></i>Laporan Lapangan</h3>
+                                <i class="bi bi-quote fs-1 text-primary mb-3"></i>
+                                <blockquote class="blockquote fs-5 mb-0">
+                                    <p>"Servisnya mantap! Tim <span class="brand-highlight">SNIPER ADS</span> benar-benar mengerti cara membuat <em>copywriting</em> yang 'kena' ke target market saya (wanita karir sibuk). Bukan cuma order yang naik, tapi <span class="text-highlight">omzet naik 30%</span> di bulan pertama karena ROAS-nya jauh lebih sehat."</p>
+                                    <footer class="blockquote-footer mt-3 fs-6">Sarah T. <cite title="Source Title">Owner Katering Diet</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#caseStudyCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#caseStudyCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </section>
 
@@ -1059,7 +1208,7 @@
         <div class="card p-5" data-aos="fade-up">
             <div class="row align-items-center g-4">
                 <div class="col-md-4 text-center">
-                    <img src="img/profile.png" alt="Foto Pendiri Sniper Ads" style="max-width: 250px; border: 4px solid var(--bs-primary);" loading="lazy">
+                    <img src="img/profile.png" class="img-fluid rounded-circle" alt="Foto Pendiri Sniper Ads" loading="lazy">
                 </div>
                 <div class="col-md-8">
                     <h4><span class="text-highlight">[AMI UMAR]</span></h4>
