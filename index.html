@@ -53,6 +53,43 @@
             cursor: none; /* Sembunyikan kursor asli */
         }
 
+        /* [BARU] CSS untuk Preloader Taktis */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bs-dark);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        @keyframes blink-loader {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        #preloader img {
+            max-width: 150px;
+            animation: blink-loader 2s infinite ease-in-out;
+        }
+        #preloader p {
+            color: var(--neon-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+
         /* [BARU] Lapisan Overlay HUD Grid */
         #hud-overlay {
             position: fixed;
@@ -716,7 +753,6 @@
                 bottom: 15px;
             }
 
-            /* [BARU] Posisikan Panah Carousel di HP */
             .carousel-control-prev, .carousel-control-next {
                 left: -10px;
                 right: -10px;
@@ -726,13 +762,18 @@
 </head>
 <body data-bs-theme="dark">
 
+    <div id="preloader">
+        <img src="img/logo.png" alt="SNIPER ADS Loading..." loading="eager">
+        <p>[ ACQUIRING TARGET... ]</p>
+    </div>
+
     <div id="hud-overlay"></div>
     <div id="cursor-crosshair"></div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top navbar-transparent">
         <div class="container py-2">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
-                <img src="img/logo.png" alt="Sniper Ads Logo" height="40" class="me-2">
+                <img src="img/logo.png" alt="Sniper Ads Logo" height="40" class="me-2" loading="eager">
                 SNIPER ADS
             </a>
             
@@ -1006,11 +1047,11 @@
             <div class="carousel-inner">
                 
                 <div class="carousel-item active">
+                    <p class="lead text-muted text-center mb-4">Studi Kasus #001: Klien Properti (Agen Rian H.)</p>
                     <div class="card dossier-card">
                         <div class="row g-0">
                             <div class="col-lg-6 dossier-data">
                                 <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
-                                <p class="text-muted mb-4">Studi Kasus #001: Klien Properti (Agen Rian H.)</p>
                                 
                                 <div class="data-point">
                                     <span class="stat-label">METODE JARING (SEBELUM)</span>
@@ -1047,11 +1088,11 @@
                 </div>
 
                 <div class="carousel-item">
+                    <p class="lead text-muted text-center mb-4">Studi Kasus #002: Klien Klinik Gigi (Andi W.)</p>
                     <div class="card dossier-card">
                         <div class="row g-0">
                             <div class="col-lg-6 dossier-data">
                                 <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
-                                <p class="text-muted mb-4">Studi Kasus #002: Klien Klinik Gigi (Andi W.)</p>
                                 
                                 <div class="data-point">
                                     <span class="stat-label">METODE JARING (SEBELUM)</span>
@@ -1088,11 +1129,11 @@
                 </div>
 
                 <div class="carousel-item">
+                    <p class="lead text-muted text-center mb-4">Studi Kasus #003: Klien Katering Diet (Sarah T.)</p>
                     <div class="card dossier-card">
                         <div class="row g-0">
                             <div class="col-lg-6 dossier-data">
                                 <h3 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Intelijen Misi</h3>
-                                <p class="text-muted mb-4">Studi Kasus #003: Klien Katering Diet (Sarah T.)</p>
                                 
                                 <div class="data-point">
                                     <span class="stat-label">METODE JARING (SEBELUM)</span>
@@ -1486,7 +1527,7 @@
                 document.documentElement.scrollTop = 0; 
             };
             
-            // [BARU] Logika Kursor Taktis
+            // 7. Logika Kursor Taktis
             const crosshair = document.getElementById('cursor-crosshair');
             if (window.matchMedia("(min-width: 769px)").matches) { // Hanya aktifkan di desktop
                 document.addEventListener('mousemove', (e) => {
@@ -1501,6 +1542,12 @@
                     crosshair.style.opacity = '1';
                 });
             }
+
+            // 8. [BARU] Logika Preloader
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                preloader.classList.add('loaded');
+            });
 
         });
     </script>
